@@ -1,0 +1,43 @@
+package com.codexjptech.faultshieldcore.handling;
+
+import com.codexjptech.faultshieldcore.exception.GlobalRestClientException;
+import com.codexjptech.faultshieldcore.model.mapper.GlobalErrorMappers;
+
+/**
+ * Handler para excepciones HTTP de aplicación en tiempo de ejecución
+ * <br/><br/>
+ *
+ * Copyright 2023 Jairo Polo <contacto.jairopolo@gmail.com>
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * <br/><br/>
+ *
+ * @author  Jairo Polo
+ * @since 0.0.1
+ */
+public class RestClientExceptionHandlerImpl extends CustomExceptionHandlerUtil implements ICustomExceptionHandler {
+
+    @Override
+    public void handle(Throwable exception) {
+
+        originalException = exception;
+        GlobalRestClientException restClientException = (GlobalRestClientException) exception;
+
+        globalApplicationException = GlobalErrorMappers.toGlobalApplicationException(restClientException);
+        globalApplicationException.setStackTrace(exception.getStackTrace());
+
+        initErrorValues(globalApplicationException);
+        manageGlobalErrorDetail();
+        buildResponseBody();
+    }
+}
