@@ -33,10 +33,10 @@ import lombok.Setter;
 @AllArgsConstructor
 public class GlobalRestClientException extends RuntimeException{
 
-    private final String code;            // Código interno del error
-    private final String status;          // código HTTP del error
-    private final String error;           // Causa del error
-    private final String message;         // Mensaje de error
-    private final String path;            // Ruta que se intenta acceder
-    private final Object details;         // Detalle del error
+    private final String code;      // Código interno del error
+    private final String status;    // código HTTP del error
+    private final String error;     // Causa del error
+    private final String message;   // Mensaje de error
+    private final String path;      // Ruta que se intenta acceder
+    private final Object details;   // Detalle del error
 }
