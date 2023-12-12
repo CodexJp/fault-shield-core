@@ -28,7 +28,14 @@ package com.codexjptech.faultshieldcore.exception;
  */
 public class ForbiddenException extends GlobalRestClientException {
 
-    public ForbiddenException(String code, String status, String error, String message, String path, Object details) {
+    public ForbiddenException(
+            String code,
+            String status,
+            String error,
+            String message,
+            String path,
+            Object details) {
+
         super(code, status, error, message, path, details);
     }
 }

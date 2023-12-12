@@ -28,7 +28,14 @@ package com.codexjptech.faultshieldcore.exception;
  */
 public class InternalServerErrorException extends GlobalRestClientException {
 
-    public InternalServerErrorException(String code, String status, String error, String message, String path, Object details) {
+    public InternalServerErrorException(
+            String code,
+            String status,
+            String error,
+            String message,
+            String path,
+            Object details) {
+
         super(code, status, error, message, path, details);
     }
 }

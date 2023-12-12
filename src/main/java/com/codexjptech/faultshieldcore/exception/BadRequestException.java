@@ -28,7 +28,14 @@ package com.codexjptech.faultshieldcore.exception;
  */
 public class BadRequestException extends GlobalRestClientException {
 
-    public BadRequestException(String code, String status, String error, String message, String path, Object details) {
+    public BadRequestException(
+            String code,
+            String status,
+            String error,
+            String message,
+            String path,
+            Object details) {
+
         super(code, status, error, message, path, details);
     }
 }

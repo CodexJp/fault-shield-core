@@ -28,7 +28,14 @@ package com.codexjptech.faultshieldcore.exception;
  */
 public class ServiceUnavailableException extends GlobalRestClientException {
 
-    public ServiceUnavailableException(String code, String status, String error, String message, String path, Object details) {
+    public ServiceUnavailableException(
+            String code,
+            String status,
+            String error,
+            String message,
+            String path,
+            Object details) {
+
         super(code, status, error, message, path, details);
     }
 }
