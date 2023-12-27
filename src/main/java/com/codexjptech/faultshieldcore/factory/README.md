@@ -8,7 +8,7 @@ How application provide concrete objects to process HTTP exceptions
 
 The diagram below illustrates the process
 
-![Component View](../../../../../resources/images/FactoryMethod.png)
+![Component View](../../../../../resources/images/FactoryMethod.gif)
 
 ## License
 

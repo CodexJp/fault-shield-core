@@ -70,7 +70,7 @@ How application manage exceptions
 
 Here's a component view illustrating the logical communication between the internal components of the library:
 
-![Component View](../../../../../resources/images/ComponentView.png)
+![Component View](../../../../../resources/images/ComponentView.gif)
 
 ## License
 

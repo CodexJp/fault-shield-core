@@ -7,7 +7,7 @@ How application use Interceptor component in application runtime
 
 The diagram below illustrates the process
 
-![Component View](../../../../../resources/images/ComponentView.png)
+![Component View](../../../../../resources/images/ComponentView.gif)
 
 ## License
 

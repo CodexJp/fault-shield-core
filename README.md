@@ -174,12 +174,18 @@ To use Fault Shield Core in your application, you can simply import it as a Mave
 ## Usage Guide
 <a name="usage-guide"></a>
 
-For detailed instructions on how to integrate and use Fault Shield Core in your application, please refer to the
-
 1. For Gradle: Import the dependency
+
+    Groovy
     ```properties
        dependencies {
          implementation 'com.codexjptech:fault-shield-core:0.0.1'
+       }
+    ```
+   Kotlin
+    ```properties
+       dependencies {
+         implementation("com.codexjptech:fault-shield-core:0.0.1")
        }
     ```
    For Maven: Import the dependency
@@ -192,12 +198,12 @@ For detailed instructions on how to integrate and use Fault Shield Core in your 
     ```
 2. Identify the layer or component from which we want to throw our custom exception: Controller, Service, Repository, etc...
 ---
-3. Modify the properties file to add the property: spring.application.package with the name of the main package of the component that imports the dependency. Example:
+3. Modify the properties file to add the property: `spring.application.package` with the name of the main package of your application. Example:
     ```properties
        spring.application.package=com.example.<myapp>
     ```
 ---
-4. Configure the main application class to scan packages from both the exception handling library and the packages of the application that uses it. Example:
+4. Configure the main application class to scan both the library packages (`fault-shield-core`) and your application's packages. Example:
     ```java
        @SpringBootApplication
        @ComponentScan(basePackages = {
@@ -205,12 +211,14 @@ For detailed instructions on how to integrate and use Fault Shield Core in your 
          "com.codexjptech.faultshieldcore"
        })
        public class SpringBootMyAppApplication {
-         SpringApplication.run(SpringBootMyAppApplication.class, args);
+           public static void main(String[] args) {
+               SpringApplication.run(SpringBootServicioPracticaApplication.class, args);
+         }
        }
      }
     ```
 ---
-5. Create an enum class to list error codes specific to the layer or component being configured. Steps:
+5. Create an `Enum` class to list error codes specific to the layer or component being configured
     * Consider the layer or component of the application being configured: Controller, Service, Repository, etc.
     * Implement the [IGlobalErrorCodeBuilder](./src/main/java/com/codexjptech/faultshieldcore/util/IGlobalErrorCodeBuilder.java) interface.
    ```java
@@ -235,7 +243,7 @@ For detailed instructions on how to integrate and use Fault Shield Core in your 
         }
    ```    
 
-6. Modify the logback-spring.xml file to link trace-level logs to the main package of the library for accurate log printing
+6. Modify the `logback-spring.xml` file to link trace-level logs to the main package of the library (`fault-shield-core`) for accurate log printing of the application's errors.
     ```xml
        <configuration>
           <logger name="com.codexjptech.faultshieldcore" 
@@ -246,7 +254,7 @@ For detailed instructions on how to integrate and use Fault Shield Core in your 
        </configuration>
    ```
 ---
-7. Create a custom exception for the component type being handled. To make it work, extend the [GlobalApplicationException](./src/main/java/com/codexjptech/faultshieldcore/exception/GlobalApplicationException.java) class.
+7. Finally, create a custom exception for the type of component you wish to handle. To make it work, extend the [GlobalApplicationException](./src/main/java/com/codexjptech/faultshieldcore/exception/GlobalApplicationException.java) class.
     ```java
       public class AppControllerException extends GlobalApplicationException {
           public AppControllerException(String message, IGlobalErrorCodeBuilder errorCodeBuilder) {
@@ -260,7 +268,7 @@ For detailed instructions on how to integrate and use Fault Shield Core in your 
 
 Here's a <b>context view</b> illustrating the use Exception Handler as a sidecar component:
 
-![Context View](./src/main/resources/images/ContextView.png)
+![Context View](./src/main/resources/images/ContextView.gif)
 
 ## License
 
