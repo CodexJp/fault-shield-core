@@ -1,6 +1,4 @@
 
-7
-LICENSE,0/3/0398ccd0f49298b10a3d76a47800d2ebecd49859
 ~
 Nsrc/main/java/com/codexjptech/faultshieldcore/factory/HttpStatusErrorEnum.java,a/3/a3b41ace3f4071afa6af3a0c4614c6544aab7e0f
 É
@@ -57,8 +55,6 @@ asrc/main/java/com/codexjptech/faultshieldcore/strategy/UnauthorizedErrorHandlin
 Osrc/main/java/com/codexjptech/faultshieldcore/util/IGlobalErrorCodeBuilder.java,6/e/6e7163f9e2240e46461ef3af61c88fa711da2809
 à
 Xsrc/main/java/com/codexjptech/faultshieldcore/util/GlobalErrorCodeManagerPrefixUtil.java,6/9/6931bb08e9e72fb2af4336829dc85cc0b7307ec3
-7
-pom.xml,4/4/442292b8a7efeabbe4cc176709b833b1792140ec
 Ç
 Rsrc/main/java/com/codexjptech/faultshieldcore/util/GlobalErrorCodeManagerImpl.java,0/8/089ef7e815622533c13fe078503f43c8fff21a48
 Ñ
@@ -99,3 +95,31 @@ esrc/main/java/com/codexjptech/faultshieldcore/model/constant/ApplicationExcepti
 csrc/main/java/com/codexjptech/faultshieldcore/model/constant/UncheckedExceptionDetailConstants.java,a/1/a1a525b7b57a691ecd0bb99ba5cbfcd16953cdb6
 Ü
 Vsrc/main/java/com/codexjptech/faultshieldcore/model/constant/ErrorDetailConstants.java,a/a/aae372fecf15ef76571876822cfe18baa83a58c9
+Ä
+Psrc/main/java/com/codexjptech/faultshieldcore/exception/BadRequestException.java,8/4/84b0276ff4eb7ffb26fab9902df9869affa99069
+è
+_src/main/java/com/codexjptech/faultshieldcore/strategy/BadRequestErrorHandlingStrategyImpl.java,4/5/45e49e932ce9521df2ca0c39600c862a93e2d37a
+ó
+gsrc/main/java/com/codexjptech/faultshieldcore/strategy/PreconditionFailedErrorHandlingStrategyImpl.java,7/f/7f6991b2ee6ea858f734da943adc254bd9fd0562
+}
+Msrc/main/java/com/codexjptech/faultshieldcore/FaultShieldCoreApplication.java,f/8/f8ddb23f04113d11475263920cb5332f2bb2e05b
+s
+Csrc/main/java/com/codexjptech/faultshieldcore/config/AppConfig.java,a/a/aa138627061e80b2a80f3119c9ff5bc31c53ad6a
+o
+?src/main/java/com/codexjptech/faultshieldcore/factory/README.md,c/3/c31ca13e94cf23d69c9f770c370065f111a46d67
+p
+@src/main/java/com/codexjptech/faultshieldcore/handling/README.md,a/a/aa909dcdbe326f19a8671c9f38a93afaa8b29f41
+s
+Csrc/main/java/com/codexjptech/faultshieldcore/interceptor/README.md,8/9/89c3069232fce81b5098d78d1202ad4f8eee3e63
+p
+@src/main/java/com/codexjptech/faultshieldcore/strategy/README.md,2/3/23f2b21db49b68f417e5f298cbb37c8f33716897
+É
+Ssrc/main/java/com/codexjptech/faultshieldcore/enums/HttpExceptionErrorCodeEnum.java,2/7/273ddb2046d8f8e019e542a82f37d0b6d23dbfca
+Ü
+Vsrc/main/java/com/codexjptech/faultshieldcore/exception/GlobalRestClientException.java,9/f/9f5e45c59a9827703a924d0b616c66780d6f408d
+q
+Asrc/main/java/com/codexjptech/faultshieldcore/exception/README.md,e/9/e9fe650b9cb783113ea155600d6b99b956b8dc82
+z
+Jsrc/main/java/com/codexjptech/faultshieldcore/model/GlobalErrorDetail.java,6/6/66add01ed46c53759d8bd9c1c7dec28d40363ddc
+à
+Xsrc/main/java/com/codexjptech/faultshieldcore/controller/ExceptionHandlerController.java,b/9/b9bd4d8bb25bf9a924f310be9798d2ee4fb0b779
