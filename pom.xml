@@ -11,9 +11,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
-    <groupId>com.codexjptech</groupId>
+    <groupId>io.github.codexjp</groupId>
     <artifactId>fault-shield-core</artifactId>
-    <version>0.0.1</version>
+    <version>0.0.1-SNAPSHOT</version>
     <name>fault-shield-core</name>
     <description>Library for detecting and managing runtime errors in Java applications with SpringBoot</description>
 

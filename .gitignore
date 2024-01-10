@@ -161,7 +161,7 @@ $RECYCLE.BIN/
 *.lnk
 
 ### IntelliJ IDEA ###
-/.idea/sonarlint/
+.idea/sonarlint/**
 .idea
 *.iws
 *.iml
