@@ -74,7 +74,7 @@ jobs:
       run: |
         echo "{{ env.artifact_name }}"
         ls -al ./target/
-        mv ./target/fault-shield-core*.jar ./target/fault-shield-core.jar
+        mv ./target/*.*:${{ env.artifact_name }}.jar ./target/${{ env.artifact_name }}.jar
     - name: Upload Artifact
       uses: actions/upload-artifact@v3
       with:
