@@ -6,7 +6,6 @@ import feign.Response;
  * Interfaz que define contrato para la implementación
  * de estrategias de administración de errores HTTP
  * en tiempo de ejecución
- * <br/><br/>
  *
  * Copyright 2023 Jairo Polo <contacto.jairopolo@gmail.com>
  *
@@ -21,7 +20,6 @@ import feign.Response;
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * <br/><br/>
  *
  * @author  Jairo Polo
  * @since 0.0.1
