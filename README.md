@@ -174,26 +174,12 @@ To use Fault Shield Core in your application, you can simply import it as a Mave
 ## Usage Guide
 <a name="usage-guide"></a>
 
-1. For Gradle: Import the dependency
-
-    Groovy
-    ```properties
-       dependencies {
-         implementation 'com.codexjptech:fault-shield-core:0.0.1'
-       }
-    ```
-   Kotlin
-    ```properties
-       dependencies {
-         implementation("com.codexjptech:fault-shield-core:0.0.1")
-       }
-    ```
-   For Maven: Import the dependency
+1. Import Maven dependency
     ```xml
        <dependency>
-            <groupId>com.codexjptech</groupId>
+            <groupId>io.github.codexjp</groupId>
             <artifactId>fault-shield-core</artifactId>
-            <version>0.0.1</version>
+            <version>0.0.2</version>
         </dependency>
     ```
 2. Identify the layer or component from which we want to throw our custom exception: Controller, Service, Repository, etc...
