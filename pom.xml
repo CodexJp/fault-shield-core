@@ -11,8 +11,8 @@
 
     <groupId>io.github.codexjp</groupId>
     <artifactId>fault-shield-core</artifactId>
-    <version>0.0.15</version>
-    <name>fault-shield-core</name>
+    <version>0.0.16-SNAPSHOT</version>
+    <name>${project.groupId}:${project.artifactId}</name>
     <description>Library for detecting and managing runtime errors in Java applications with SpringBoot</description>
 
     <licenses>
@@ -30,16 +30,24 @@
         </developer>
     </developers>
 
-    <scm>
-        <connection>scm:git:https://github.com/CodexJp/fault-shield-core.git</connection>
-        <url>https://github.com/CodexJp/fault-shield-core.git</url>
-        <developerConnection>scm:git:https://github.com/CodexJp/fault-shield-core.git</developerConnection>
-        <tag>0.0.15</tag>
-    </scm>
-
     <properties>
+
+        <!-- Generic properties -->
         <java.version>17</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <!-- Other dependencies such as Spring, Hibernate etc -->
+        <maven.compiler.release>${java.version}</maven.compiler.release>
+
+        <version.java>${java.version}</version.java>
+        <maven.javadoc.failOnError>false</maven.javadoc.failOnError>
+
         <spring-cloud.version>2022.0.3</spring-cloud.version>
+
+        <!-- disable javadoc linter for JDK17 to not fail on incomplete javadoc -->
+        <additionalparam>-Xdoclint:none</additionalparam>
+
     </properties>
 
     <dependencies>
@@ -112,7 +120,7 @@
     </dependencyManagement>
 
     <build>
-        <finalName>${project.artifactId}</finalName>
+        <finalName>${project.groupId}:${project.artifactId}</finalName>
         <pluginManagement>
             <plugins>
                 <plugin>
@@ -159,6 +167,13 @@
             <url>https://s01.oss.sonatype.org/content/repositories/releases</url>
         </repository>
     </distributionManagement>
+
+    <scm>
+        <connection>scm:git:https://github.com/CodexJp/fault-shield-core.git</connection>
+        <url>https://github.com/CodexJp/fault-shield-core.git</url>
+        <developerConnection>scm:git:https://github.com/CodexJp/fault-shield-core.git</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
 
     <profiles>
         <profile>
