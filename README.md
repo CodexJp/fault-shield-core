@@ -248,6 +248,7 @@ To use Fault Shield Core in your application, you can simply import it as a Mave
           }
       }
     ```
+8. Test
 
 ## Diagram
 <a name="diagram"></a>
