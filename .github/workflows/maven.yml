@@ -93,14 +93,15 @@ jobs:
     needs: [build]
     runs-on: "ubuntu-latest"
     steps:
-      - id: create_release
-        name: Create GitHub Release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Generate Changelog
+        run: echo "# Good things have arrived" > ${{ github.workspace }}-CHANGELOG.txt
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
         with:
-          tag_name: ${{ github.event.inputs.releaseVersion }}
-          release_name: ${{ github.event.inputs.releaseVersion }}
+          body_path: ${{ github.workspace }}-CHANGELOG.txt
           body: |
             Grab the new version from Maven central https://central.sonatype.com/artifact/io.github.codexjp/fault-shield-core/${{ github.event.inputs.releaseVersion }}/ by using it in your deps
 
@@ -116,5 +117,8 @@ jobs:
 
             ### Things that changed in this release
             ${{ steps.changelog.outputs.changelog }}
-          draft: false
-          prerelease: false
+          # note you'll typically need to create a personal access token
+          # with permissions to create releases in the other repo
+          token: ${{ secrets.CUSTOM_GITHUB_TOKEN }}
+        env:
+          GITHUB_REPOSITORY: my_gh_org/my_gh_repo
