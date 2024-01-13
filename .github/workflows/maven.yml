@@ -97,16 +97,6 @@ jobs:
         name: Checkout repository
         uses: actions/checkout@v4
 
-      - id: setup-go
-        name: Set up Go
-        uses: actions/setup-go@v2
-        with:
-          go-version: 1.21.1
-
-      - id: build
-        name: Build package
-        run: make build
-
       - id: release
         name: Create release
         uses: "marvinpinto/action-automatic-releases@latest"
