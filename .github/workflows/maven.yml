@@ -60,7 +60,6 @@ jobs:
           -Dgpg.passphrase=${{ secrets.MAVEN_GPG_PASSPHRASE }} \
           -DreleaseVersion=${{ github.event.inputs.releaseVersion }} \
           -DdevelopmentVersion=${{ github.event.inputs.developmentVersion }} \
-          -Dtag=v${{ github.event.inputs.releaseVersion }} \
           deploy
       env:
         MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
