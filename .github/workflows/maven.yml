@@ -93,13 +93,12 @@ jobs:
     needs: [build]
     runs-on: "ubuntu-latest"
     steps:
-      - id: checkout
-        name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
+      - name: Generate changelog
 
-      - id: changelog
-        name: Generate changelog
-        uses: metcalfc/changelog-generator@v0.4.4
+        id: changelog
+        uses: metcalfc/changelog-generator@v4.2.0
         with:
           myToken: ${{ secrets.GITHUB_TOKEN }}
 
