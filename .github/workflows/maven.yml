@@ -90,6 +90,7 @@ jobs:
   # Automatically create a GitHub Release, with release details specified (the relevant commits)
   release:
     name: "Release"
+    needs: [build]
     runs-on: "ubuntu-latest"
     steps:
       - uses: "marvinpinto/action-automatic-releases@latest"
