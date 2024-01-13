@@ -97,13 +97,16 @@ jobs:
         uses: actions/checkout@v3
       - name: Generate Changelog
         run: echo "# Good things have arrived" > ${{ github.workspace }}-CHANGELOG.txt
-      - name: Release
-        uses: softprops/action-gh-release@v1
+      - name: Create GitHub Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          body_path: ${{ github.workspace }}-CHANGELOG.txt
+          tag_name: ${{ github.event.inputs.releaseVersion }}
+          release_name: ${{ github.event.inputs.releaseVersion }}
           body: |
             Grab the new version from Maven central https://central.sonatype.com/artifact/io.github.codexjp/fault-shield-core/${{ github.event.inputs.releaseVersion }}/ by using it in your deps
-
             ```
             <dependencies>
                 <dependency>
@@ -113,11 +116,9 @@ jobs:
                 </dependency>
             </dependencies>
             ```
-
             ### Things that changed in this release
             ${{ steps.changelog.outputs.changelog }}
           # note you'll typically need to create a personal access token
           # with permissions to create releases in the other repo
-          token: ${{ secrets.GITHUB_TOKEN }}
-        env:
-          GITHUB_REPOSITORY: my_gh_org/my_gh_repo
+          draft: false
+          prerelease: false
