@@ -17,6 +17,7 @@ on:
         default: ""
 
 jobs:
+  # Prepare y publish maven artifact into Maven Central
   build:
     runs-on: ubuntu-latest
     steps:
@@ -86,3 +87,12 @@ jobs:
       with:
         event-type: release-notes
         client-payload: '{"auto_release": "${{ env.auto_release }}", "artifact": "${{ env.artifact_name }}-${{ env.sha_short }}"}'
+  # Automatically create a GitHub Release, with release details specified (the relevant commits)
+  release:
+    name: "Release"
+    runs-on: "ubuntu-latest"
+    steps:
+      - uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          prerelease: false
