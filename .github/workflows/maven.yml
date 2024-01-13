@@ -93,7 +93,24 @@ jobs:
     needs: [build]
     runs-on: "ubuntu-latest"
     steps:
-      - uses: "marvinpinto/action-automatic-releases@latest"
+      - id: checkout
+        name: Checkout repository
+        uses: actions/checkout@v4
+
+      - id: setup-go
+        name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.21.1
+
+      - id: build
+        name: Build package
+        run: make build
+
+      - id: release
+        name: Create release
+        uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "${{ needs.create-tag.outputs.tag }}"
           prerelease: false
