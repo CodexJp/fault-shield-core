@@ -88,7 +88,11 @@ jobs:
         event-type: release-notes
         client-payload: '{"auto_release": "${{ env.auto_release }}", "artifact": "${{ env.artifact_name }}-${{ env.sha_short }}"}'
     - name: Generate Changelog
+      id: changelog
       run: echo "# Good things have arrived" > ${{ github.workspace }}-CHANGELOG.txt
+      uses: metcalfc/changelog-generator@v0.4.4
+      with:
+        myToken: ${{ secrets.GITHUB_TOKEN }}
     - name: Checkout code
       uses: actions/checkout@master
     - name: Create Release
@@ -97,8 +101,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
       with:
-        tag_name: ${{ env.artifact_name }}
-        release_name: Release ${{ env.artifact_name }}
+        tag_name: ${{ env.artifact_name }} ${{ github.event.inputs.releaseVersion }}
+        release_name: Release ${{ env.artifact_name }} ${{ github.event.inputs.releaseVersion }}
         body: |
           Grab the new version from Maven central https://central.sonatype.com/artifact/io.github.codexjp/fault-shield-core/${{ github.event.inputs.releaseVersion }}/ by using it in your deps
 
@@ -114,3 +118,5 @@ jobs:
 
           ### Things that changed in this release
           ${{ steps.changelog.outputs.changelog }}
+        draft: false
+        prerelease: false
