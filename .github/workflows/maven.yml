@@ -103,8 +103,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
         with:
-          tag_name: ${{ github.event.inputs.releaseVersion }}
-          release_name: Release ${{ github.event.inputs.releaseVersion }}
+          tag_name: ${{ env.artifact_name }}
+          release_name: Release ${{ env.artifact_name }}
           body: |
             Grab the new version from Maven central https://central.sonatype.com/artifact/io.github.codexjp/fault-shield-core/${{ github.event.inputs.releaseVersion }}/ by using it in your deps
 
