@@ -50,6 +50,8 @@ jobs:
         else
           echo "auto_release=false" >> $GITHUB_ENV
         fi
+    - name: Store Release Version
+      run: echo "RELEASE_VERSION=${{ github.event.inputs.releaseVersion }}" > release_version.env
     - name: Release With Maven
       run: |
         mvn -B -U \
@@ -89,10 +91,16 @@ jobs:
         event-type: release-notes
         client-payload: '{"auto_release": "${{ env.auto_release }}", "artifact": "${{ env.artifact_name }}-${{ env.sha_short }}"}'
     # Release
+    - name: Load Release Version
+      run: |
+        source release_version.env
+        echo "Release Version: $RELEASE_VERSION"
+      shell: bash
     - name: Debug Release Info
       run: |
         echo "Artifact Name: ${{ env.artifact_name }}"
-        echo "Release Version: ${{ env.release_version }}"
+        echo "Release Version: ${{ env.RELEASE_VERSION }}"
+        echo "Auto Release Flag: ${{ env.auto_release }}"
     - name: Generate Changelog
       id: changelog
       uses: metcalfc/changelog-generator@v0.4.4
