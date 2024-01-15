@@ -46,6 +46,7 @@ jobs:
       run: |
         if [ "${{ github.event.inputs.releaseVersion }}" != "" ] && [ "${{ github.event.inputs.developmentVersion }}" != "" ]; then
           echo "auto_release=true" >> $GITHUB_ENV
+          echo "release_version=${{ github.event.inputs.releaseVersion }}" >> $GITHUB_ENV
         else
           echo "auto_release=false" >> $GITHUB_ENV
         fi
@@ -87,6 +88,11 @@ jobs:
       with:
         event-type: release-notes
         client-payload: '{"auto_release": "${{ env.auto_release }}", "artifact": "${{ env.artifact_name }}-${{ env.sha_short }}"}'
+    # Release
+    - name: Debug Release Info
+      run: |
+        echo "Artifact Name: ${{ env.artifact_name }}"
+        echo "Release Version: ${{ env.release_version }}"
     - name: Generate Changelog
       id: changelog
       uses: metcalfc/changelog-generator@v0.4.4
