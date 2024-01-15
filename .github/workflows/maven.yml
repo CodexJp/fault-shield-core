@@ -95,15 +95,17 @@ jobs:
     steps:
       - name: Generate Changelog
         run: echo "# Good things have arrived" > ${{ github.workspace }}-CHANGELOG.txt
-      - name: Create GitHub Release
-        uses: softprops/action-gh-release@v1
-        with:
-          files: ./target/${{ env.artifact_name }}.jar
+      - name: Checkout code
+        uses: actions/checkout@master
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@latest
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          RELEASE_NAME: ${{ github.event.inputs.releaseVersion }}
-          RELEASE_TAG: ${{ github.event.inputs.releaseVersion }}
-          RELEASE_NOTES: |
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          body: |
             Grab the new version from Maven central https://central.sonatype.com/artifact/io.github.codexjp/fault-shield-core/${{ github.event.inputs.releaseVersion }}/ by using it in your deps
 
             ```
