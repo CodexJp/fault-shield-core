@@ -90,35 +90,31 @@ jobs:
   # Automatically create a GitHub Release, with release details specified (the relevant commits)
   release:
     name: "Release"
-    needs: [build]
+    needs: [ build ]
     runs-on: "ubuntu-latest"
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
       - name: Generate Changelog
         run: echo "# Good things have arrived" > ${{ github.workspace }}-CHANGELOG.txt
       - name: Create GitHub Release
-        id: create_release
-        uses: actions/create-release@v1
+        uses: softprops/action-gh-release@v1
+        with:
+          files: ./target/${{ env.artifact_name }}.jar
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.event.inputs.releaseVersion }}
-          release_name: ${{ github.event.inputs.releaseVersion }}
-          body: |
+          RELEASE_NAME: ${{ github.event.inputs.releaseVersion }}
+          RELEASE_TAG: ${{ github.event.inputs.releaseVersion }}
+          RELEASE_NOTES: |
             Grab the new version from Maven central https://central.sonatype.com/artifact/io.github.codexjp/fault-shield-core/${{ github.event.inputs.releaseVersion }}/ by using it in your deps
+
             ```
             <dependencies>
                 <dependency>
                     <groupId>io.github.codexjp</groupId>
                     <artifactId>fault-shield-core</artifactId>
-                    <version>0.0.20</version>
+                    <version>${{ github.event.inputs.releaseVersion }}</version>
                 </dependency>
             </dependencies>
             ```
+
             ### Things that changed in this release
             ${{ steps.changelog.outputs.changelog }}
-          # note you'll typically need to create a personal access token
-          # with permissions to create releases in the other repo
-          draft: false
-          prerelease: false
