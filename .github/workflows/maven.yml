@@ -46,13 +46,9 @@ jobs:
       run: |
         if [ "${{ github.event.inputs.releaseVersion }}" != "" ] && [ "${{ github.event.inputs.developmentVersion }}" != "" ]; then
           echo "auto_release=true" >> $GITHUB_ENV
-          echo "release_version=${{ github.event.inputs.releaseVersion }}" >> $GITHUB_ENV
         else
           echo "auto_release=false" >> $GITHUB_ENV
-          echo "release_version=${{ github.event.inputs.releaseVersion }}" >> $GITHUB_ENV
         fi
-    - name: Store Release Version
-      run: echo "RELEASE_VERSION=${{ github.event.inputs.releaseVersion }}" > release_version.env
     - name: Release With Maven
       run: |
         mvn -B -U \
@@ -92,14 +88,21 @@ jobs:
         event-type: release-notes
         client-payload: '{"auto_release": "${{ env.auto_release }}", "artifact": "${{ env.artifact_name }}-${{ env.sha_short }}"}'
     # Release
-    - name: Load Release Version
-      run: echo "RELEASE_VERSION=$(cat release_version.env)" >> $GITHUB_ENV
+    - name: Extract Release Version
+      id: extract
+      uses: andreacomo/maven-gav-extractor@v2
+    - name: Log GAV
+      run: |
+        echo ${{ steps.extract.outputs.group-id }}
+        echo ${{ steps.extract.outputs.artifact-id }}
+        echo ${{ steps.extract.outputs.version }}
+        echo ${{ steps.extract.outputs.name }}
+        echo "release_version=${{ steps.extract.outputs.version }}" >> $GITHUB_ENV
       shell: bash
     - name: Debug Release Info
       run: |
         echo "Artifact Name: ${{ env.artifact_name }}"
-        echo "Release Version 1: ${{ env.RELEASE_VERSION }}"
-        echo "Release Version 2: ${{ env.release_version }}"
+        echo "Release Version: ${{ env.release_version }}"
         echo "Auto Release Flag: ${{ env.auto_release }}"
     - name: Generate Changelog
       id: changelog
@@ -114,8 +117,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
       with:
-        tag_name: ${{ env.artifact_name }} ${{ github.event.inputs.releaseVersion }}
-        release_name: Release ${{ env.artifact_name }} ${{ github.event.inputs.releaseVersion }}
+        tag_name: ${{ env.artifact_name }} ${{ env.release_version }}
+        release_name: Release ${{ env.artifact_name }} ${{ env.release_version }}
         body: |
           Grab the new version from Maven central https://central.sonatype.com/artifact/io.github.codexjp/fault-shield-core/${{ github.event.inputs.releaseVersion }}/ by using it in your deps
 
