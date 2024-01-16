@@ -30,6 +30,27 @@ jobs:
         java-package: 'jdk'
         cache: 'maven'
         server-id: ossrh
+    - name: Extract Release Version
+      id: extract
+      uses: andreacomo/maven-gav-extractor@v2
+    - name: Log GAV
+      run: |
+        echo ${{ steps.extract.outputs.group-id }}
+        echo ${{ steps.extract.outputs.artifact-id }}
+        echo ${{ steps.extract.outputs.version }}
+        echo ${{ steps.extract.outputs.name }}
+        export RELEASE_VERSION=$(echo "${{ steps.extract.outputs.version }}" | sed 's/-SNAPSHOT//')
+        echo "release_version=${RELEASE_VERSION}" >> $GITHUB_ENV
+        export TAG_NAME="${artifact_name}-${RELEASE_VERSION}"
+        export RELEASE_NAME="${artifact_name} ${RELEASE_VERSION}"
+        echo "TAG_NAME=${TAG_NAME}" >> $GITHUB_ENV
+        echo "RELEASE_NAME=${RELEASE_NAME}" >> $GITHUB_ENV
+      shell: bash
+    - name: Debug Release Info
+      run: |
+        echo "Artifact Name: ${{ env.artifact_name }}"
+        echo "Release Version: ${{ env.release_version }}"
+        echo "Auto Release Flag: ${{ env.auto_release }}"
     - name: Configure Git User
       run: |
         git config user.email "actions@github.com"
@@ -95,27 +116,6 @@ jobs:
         event-type: release-notes
         client-payload: '{"auto_release": "${{ env.auto_release }}", "artifact": "${{ env.artifact_name }}-${{ env.sha_short }}"}'
     # Release
-    - name: Extract Release Version
-      id: extract
-      uses: andreacomo/maven-gav-extractor@v2
-    - name: Log GAV
-      run: |
-        echo ${{ steps.extract.outputs.group-id }}
-        echo ${{ steps.extract.outputs.artifact-id }}
-        echo ${{ steps.extract.outputs.version }}
-        echo ${{ steps.extract.outputs.name }}
-        export RELEASE_VERSION=$(echo "${{ steps.extract.outputs.version }}" | sed 's/-SNAPSHOT//')
-        echo "release_version=${RELEASE_VERSION}" >> $GITHUB_ENV
-        export TAG_NAME="${artifact_name}-${RELEASE_VERSION}"
-        export RELEASE_NAME="${artifact_name} ${RELEASE_VERSION}"
-        echo "TAG_NAME=${TAG_NAME}" >> $GITHUB_ENV
-        echo "RELEASE_NAME=${RELEASE_NAME}" >> $GITHUB_ENV
-      shell: bash
-    - name: Debug Release Info
-      run: |
-        echo "Artifact Name: ${{ env.artifact_name }}"
-        echo "Release Version: ${{ env.release_version }}"
-        echo "Auto Release Flag: ${{ env.auto_release }}"
     - name: Generate Changelog
       id: changelog
       uses: metcalfc/changelog-generator@v0.4.4
