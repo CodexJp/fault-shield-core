@@ -125,7 +125,7 @@ jobs:
         tag_name: ${{ env.release_version }}
         release_name: Release ${{ env.artifact_name }} ${{ env.release_version }}
         body: |
-          Grab the new version from Maven central https://central.sonatype.com/artifact/io.github.codexjp/fault-shield-core/${{ github.event.inputs.releaseVersion }}/ by using it in your deps
+          Grab the new version from Maven central https://central.sonatype.com/artifact/io.github.codexjp/fault-shield-core/${{ env.release_version }}/ by using it in your deps
 
           ```
           <dependencies>
