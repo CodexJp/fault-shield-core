@@ -98,15 +98,15 @@ jobs:
         echo ${{ steps.extract.outputs.version }}
         echo ${{ steps.extract.outputs.name }}
         echo "release_version=${{ steps.extract.outputs.version }}" >> $GITHUB_ENV
-        export TAG_NAME=$(echo "${artifact_name}" | sed 's/-SNAPSHOT//')
-        export RELEASE_NAME="Release ${artifact_name} ${TAG_NAME}"
+        export TAG_NAME=$(echo "${release_version}" | sed 's/-SNAPSHOT//')
+        export RELEASE_NAME="Release ${artifact_name} "
         echo "TAG_NAME=${TAG_NAME}" >> $GITHUB_ENV
         echo "RELEASE_NAME=${RELEASE_NAME}" >> $GITHUB_ENV
       shell: bash
     - name: Debug Release Info
       run: |
         echo "Artifact Name: ${{ env.artifact_name }}"
-        echo "Release Version: ${{ env.artifact_name }}"
+        echo "Release Version: ${{ env.TAG_NAME }}"
         echo "Auto Release Flag: ${{ env.auto_release }}"
     - name: Generate Changelog
       id: changelog
