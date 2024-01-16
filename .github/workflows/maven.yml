@@ -44,24 +44,31 @@ jobs:
       id: release
       shell: bash
       run: |
-        if [ "${{ github.event.inputs.releaseVersion }}" != "" ] && [ "${{ github.event.inputs.developmentVersion }}" != "" ]; then
+        if [ "${{ github.event_name }}" == "push" ] && [ "${{ github.ref }}" == "refs/heads/master" ]; then
+          # Si es un push a la rama master, establecer auto_release en true
           echo "auto_release=true" >> $GITHUB_ENV
         else
+          # En otros casos, establecer auto_release en false
           echo "auto_release=false" >> $GITHUB_ENV
         fi
+        echo "auto_release: ${{ env.auto_release }}"
     - name: Release With Maven
       run: |
-        mvn -B -U \
-          -Pci-cd \
-          release:prepare \
-          release:perform \
-          javadoc:jar \
-          source:jar \
-          -s /home/runner/work/fault-shield-core/fault-shield-core/settings.xml \
-          -Dgpg.passphrase=${{ secrets.MAVEN_GPG_PASSPHRASE }} \
-          -DreleaseVersion=${{ github.event.inputs.releaseVersion }} \
-          -DdevelopmentVersion=${{ github.event.inputs.developmentVersion }} \
-          deploy
+        if [ "${{ env.auto_release }}" = "true" ]; then
+          mvn -B -U \
+            -Pci-cd \
+            release:prepare \
+            release:perform \
+            javadoc:jar \
+            source:jar \
+            -s /home/runner/work/fault-shield-core/fault-shield-core/settings.xml \
+            -Dgpg.passphrase=${{ secrets.MAVEN_GPG_PASSPHRASE }} \
+            -DreleaseVersion=${{ github.event.inputs.releaseVersion }} \
+            -DdevelopmentVersion=${{ github.event.inputs.developmentVersion }} \
+            deploy
+        else
+          echo "Auto release is not enabled. Skipping release steps."
+        fi
       env:
         MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
         MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
