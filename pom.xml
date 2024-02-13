@@ -11,7 +11,7 @@
 
     <groupId>io.github.codexjp</groupId>
     <artifactId>fault-shield-core</artifactId>
-    <version>0.0.59-SNAPSHOT</version>
+    <version>0.0.60-SNAPSHOT</version>
     <name>${project.groupId}:${project.artifactId}</name>
     <description>Library for detecting and managing runtime errors in Java applications with SpringBoot</description>
 
