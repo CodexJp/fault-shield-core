@@ -114,7 +114,7 @@ public class UncheckedExceptionInterceptor extends UncheckedExceptionHandlerImpl
      * IllegalArgumentException
      */
     @ExceptionHandler(IllegalArgumentException.class)
-    protected ResponseEntity<Object> handleNullPointerException(
+    protected ResponseEntity<Object> handleIllegalArgumentException(
             IllegalArgumentException exception
     ){
 

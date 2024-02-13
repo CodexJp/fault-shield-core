@@ -9,8 +9,10 @@ import com.codexjptech.faultshieldcore.model.GlobalResponse;
 import com.codexjptech.faultshieldcore.model.constant.GlobalErrorConstants;
 import com.codexjptech.faultshieldcore.model.mapper.GlobalErrorMappers;
 import com.codexjptech.faultshieldcore.util.IGlobalErrorCodeBuilder;
+import lombok.Setter;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -19,7 +21,6 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 /**
  * Clase utilitaria usada para gestionar los datos que conforman
@@ -46,6 +47,7 @@ import java.util.stream.Collectors;
  * @since 0.0.1
  */
 @Slf4j
+@Setter
 public class CustomExceptionHandlerUtil {
 
     protected String errorDetailDescription;
@@ -67,6 +69,9 @@ public class CustomExceptionHandlerUtil {
     private List<GlobalErrorDetailStackTrace> errorDetailStackTrace;
     private List<String> validationErrorDetails;
 
+    @Autowired
+    private GlobalErrorMappers globalErrorMappers;
+
     protected void initErrorValues(Exception exception) {
 
         errorDetail = null;
@@ -81,7 +86,7 @@ public class CustomExceptionHandlerUtil {
         buildUUID();
     }
 
-    protected void manageGlobalErrorDetail() {
+    public void manageGlobalErrorDetail() {
         buildGlobalErrorDetailStackTrace();
         buildGlobalErrorDetail();
     }
@@ -99,13 +104,13 @@ public class CustomExceptionHandlerUtil {
         validationErrorDetails = exception.getBindingResult().getFieldErrors()
                 .stream()
                 .map(FieldError::getDefaultMessage)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     private void buildGlobalErrorDetailStackTrace(){
         // Stack trace
         errorDetailStackTrace =
-                GlobalErrorMappers.toGlobalErrorDetailStackTraceList(
+                globalErrorMappers.toGlobalErrorDetailStackTraceList(
                         traceElements,
                         globalApplicationException
                 );

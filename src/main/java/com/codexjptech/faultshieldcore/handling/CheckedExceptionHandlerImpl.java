@@ -44,7 +44,7 @@ public class CheckedExceptionHandlerImpl extends CustomExceptionHandlerUtil impl
             manageMethodArgumentNotValidException(exception);
 
         } else {
-            String errorMessage = exception.getMessage() != null ?
+            String errorMessage = (exception.getMessage() != null) ?
                     exception.getMessage() :
                     GlobalErrorConstants.GENERIC_ERROR_MESSAGE;
 

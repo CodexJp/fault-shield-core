@@ -35,7 +35,6 @@ public class RestClientErrorDecoderHandler implements ErrorDecoder {
 
     private final RestClientErrorHandlingStrategyFactory factory = new RestClientErrorHandlingStrategyFactory();
 
-    @SneakyThrows
     @Override
     public Exception decode(String methodKey, Response response) {
 

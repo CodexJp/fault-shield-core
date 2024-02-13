@@ -4,6 +4,7 @@ import com.codexjptech.faultshieldcore.config.AppConfig;
 import com.codexjptech.faultshieldcore.exception.GlobalApplicationException;
 import com.codexjptech.faultshieldcore.exception.GlobalRestClientException;
 import com.codexjptech.faultshieldcore.model.GlobalErrorDetailStackTrace;
+import lombok.Setter;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -34,7 +35,8 @@ import java.util.Optional;
  * @since 0.0.1
  */
 @Component
-public final class GlobalErrorMappers {
+@Setter
+public class GlobalErrorMappers {
 
     private static String applicationPackage;
 
@@ -61,7 +63,7 @@ public final class GlobalErrorMappers {
                         .build());
     }
 
-    public static List<GlobalErrorDetailStackTrace> toGlobalErrorDetailStackTraceList(
+    public List<GlobalErrorDetailStackTrace> toGlobalErrorDetailStackTraceList(
             StackTraceElement[] traceElements,
             GlobalApplicationException exception
     ){

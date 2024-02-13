@@ -31,10 +31,10 @@ public class ApplicationConstants {
         log.error("Utility Class");
     }
     public static final String EMPTY_STRING = "";
-    public static final String HYPHEN_CHAR = "";
+    public static final String HYPHEN_CHAR = "-";
 
     // HTTP Group Code Type
-    public static final String CLIENT_ERROR = " 4xx Client Error ";
-    public static final String SERVER_ERROR = " 5xx Server Error ";
+    public static final String CLIENT_ERROR = "4xx Client Error";
+    public static final String SERVER_ERROR = "5xx Server Error";
 }
 
