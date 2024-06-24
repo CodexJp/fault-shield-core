@@ -72,4 +72,15 @@ public class UncheckedExceptionDetailConstants {
 
     public static final String CONCURRENT_MODIFICATION_EXCEPTION_ERROR_SUGGESTION_MESSAGE =
             "Utiliza estructuras de datos apropiadas para evitar modificaciones concurrentes.";
+
+    // ConverterNotFoundException
+    public static final String CONVERTER_NOT_FOUND_EXCEPTION_ERROR_DESCRIPTION_MESSAGE =
+            "No se pudo encontrar un convertidor adecuado para convertir el resultado de la consulta SQL " +
+            "al tipo de dato esperado en la aplicación.";
+
+    public static final String CONVERTER_NOT_FOUND_EXCEPTION_ERROR_SUGGESTION_MESSAGE =
+            "Verifica que el DTO esté correctamente mapeado y que los nombres de las columnas en el resultado " +
+            "de la consulta coincidan con los nombres de los campos en el DTO. Considera implementar un " +
+            "ResultSetExtractor o RowMapper personalizado si es necesario.";
+
 }

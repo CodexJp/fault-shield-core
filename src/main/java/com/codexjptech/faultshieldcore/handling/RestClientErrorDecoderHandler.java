@@ -7,6 +7,9 @@ import feign.codec.ErrorDecoder;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 /**
  * Funciona como cliente de la fábrica de objetos de
  * estrategia de excepciones de tipo HTTP

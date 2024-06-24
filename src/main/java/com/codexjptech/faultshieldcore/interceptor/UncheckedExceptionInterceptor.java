@@ -4,6 +4,7 @@ import com.codexjptech.faultshieldcore.enums.UncheckedExceptionErrorCodeEnum;
 import com.codexjptech.faultshieldcore.handling.UncheckedExceptionHandlerImpl;
 import com.codexjptech.faultshieldcore.model.constant.UncheckedExceptionDetailConstants;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.convert.ConverterNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -140,6 +141,44 @@ public class UncheckedExceptionInterceptor extends UncheckedExceptionHandlerImpl
         errorDetailDescription = UncheckedExceptionDetailConstants.CONCURRENT_MODIFICATION_EXCEPTION_ERROR_DESCRIPTION_MESSAGE;
         errorDetailSuggestions = UncheckedExceptionDetailConstants.CONCURRENT_MODIFICATION_EXCEPTION_ERROR_SUGGESTION_MESSAGE;
         globalErrorCodeBuilder = UncheckedExceptionErrorCodeEnum.ERROR_CONCURRENT_MODIFICATION_EXCEPTION;
+
+        handle(exception);
+
+        return ResponseEntity
+                .internalServerError()
+                .body(errorResponse);
+    }
+
+    /*
+     * ConverterNotFoundException
+     */
+    @ExceptionHandler(ConverterNotFoundException.class)
+    protected ResponseEntity<Object> handleConverterNotFoundException(
+            ConverterNotFoundException exception
+    ){
+
+        errorDetailDescription = UncheckedExceptionDetailConstants.CONVERTER_NOT_FOUND_EXCEPTION_ERROR_DESCRIPTION_MESSAGE;
+        errorDetailSuggestions = UncheckedExceptionDetailConstants.CONVERTER_NOT_FOUND_EXCEPTION_ERROR_SUGGESTION_MESSAGE;
+        globalErrorCodeBuilder = UncheckedExceptionErrorCodeEnum.ERROR_CONVERTER_NOT_FOUND_EXCEPTION;
+
+        handle(exception);
+
+        return ResponseEntity
+                .internalServerError()
+                .body(errorResponse);
+    }
+
+    /*
+     * ConverterNotFoundException
+     */
+    @ExceptionHandler(IllegalStateException.class)
+    protected ResponseEntity<Object> handleIllegalStateException(
+            IllegalStateException exception
+    ){
+
+        errorDetailDescription = UncheckedExceptionDetailConstants.ILLEGAL_STATE_EXCEPTION_ERROR_DESCRIPTION_MESSAGE;
+        errorDetailSuggestions = UncheckedExceptionDetailConstants.ILLEGAL_STATE_EXCEPTION_ERROR_SUGGESTION_MESSAGE;
+        globalErrorCodeBuilder = UncheckedExceptionErrorCodeEnum.ERROR_CONVERTER_NOT_FOUND_EXCEPTION;
 
         handle(exception);
 
