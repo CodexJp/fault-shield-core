@@ -169,7 +169,7 @@ public class UncheckedExceptionInterceptor extends UncheckedExceptionHandlerImpl
     }
 
     /*
-     * ConverterNotFoundException
+     * IllegalStateException
      */
     @ExceptionHandler(IllegalStateException.class)
     protected ResponseEntity<Object> handleIllegalStateException(
